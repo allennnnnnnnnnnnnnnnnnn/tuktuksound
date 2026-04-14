@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@300;400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --obsidian: #080808;
+  --ash: #111111;
+  --slate: #1a1a1a;
+  --mist: #2a2a2a;
+  --silver: #8a8a8a;
+  --pearl: #c8c8c8;
+  --cream: #e8e4dc;
+  --gold: #b8a882;
+  --ember: #c4703a;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--obsidian);
+  color: var(--cream);
+  font-family: "Syne", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--mist);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--silver);
+}
+
+/* Selection */
+::selection {
+  background: var(--gold);
+  color: var(--obsidian);
+}
+
+/* Grain overlay */
+.grain::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-body {
+  font-family: "Syne", sans-serif;
+}
+
+.font-mono {
+  font-family: "DM Mono", monospace;
+}
+
+/* Animated underline */
+.underline-anim {
+  position: relative;
+}
+
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+
+.underline-anim:hover::after {
+  width: 100%;
+}
+
+/* Fade up animation utility */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gold shimmer text */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    var(--cream) 40%,
+    var(--gold) 60%,
+    var(--pearl) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Horizontal rule */
+.rule {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Link hover gold */
+a.gold-hover:hover {
+  color: var(--gold);
+}
+
+/* Project card */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.project-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.95) 0%, rgba(8, 8, 8, 0.2) 60%, transparent 100%);
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover .overlay {
+  opacity: 0.85;
+}
+
+.project-card img {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card:hover img {
+  transform: scale(1.04);
+}
+
+/* Navbar */
+.navbar-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(8, 8, 8, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Form input */
+.form-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--cream);
+  transition: border-color 0.3s ease, background 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--gold);
+  background: rgba(184, 168, 130, 0.04);
+}
+
+.form-input::placeholder {
+  color: var(--silver);
+}
