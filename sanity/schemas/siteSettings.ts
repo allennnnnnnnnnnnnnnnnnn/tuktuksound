@@ -2,81 +2,39 @@ import { defineField, defineType } from "sanity";
 
 export const siteSettings = defineType({
   name: "siteSettings",
-  title: "Site Settings",
+  title: "網站設定",
   type: "document",
-  // Makes this a singleton — only one document of this type allowed
-  __experimental_actions: ["update", "publish"],
   fields: [
+    defineField({ name: "studioName", title: "工作室名稱", type: "string" }),
+    defineField({ name: "homepageTitle", title: "首頁主標題", type: "string" }),
+    defineField({ name: "homepageSubtitle", title: "首頁副標題", type: "string" }),
+    defineField({ name: "heroImage", title: "首頁背景圖片", type: "image", options: { hotspot: true } }),
+    defineField({ name: "aboutTitle", title: "關於頁標題（姓名）", type: "string" }),
+    defineField({ name: "aboutRole", title: "關於頁職稱", type: "string" }),
+    defineField({ name: "aboutBody", title: "關於頁個人介紹", type: "array", of: [{ type: "block" }] }),
+    defineField({ name: "aboutLocation", title: "所在地", type: "string" }),
+    defineField({ name: "aboutFormat", title: "混音格式", type: "string" }),
+    defineField({ name: "aboutDaw", title: "DAW 軟體", type: "string" }),
+    defineField({ name: "aboutExpertise", title: "專業技能標籤", type: "array", of: [{ type: "string" }] }),
     defineField({
-      name: "studioName",
-      title: "Studio Name",
-      type: "string",
-      description: "Displayed in the navbar and page titles (e.g. TukTuk Studio)",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "homepageTitle",
-      title: "Homepage Title",
-      type: "string",
-      description: "The large hero title on the homepage",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "homepageSubtitle",
-      title: "Homepage Subtitle",
-      type: "string",
-      description: "The tagline below the hero title (e.g. Film Sound Design & Post-Production)",
-    }),
-    defineField({
-      name: "heroImage",
-      title: "Hero Background Image",
-      type: "image",
-      description: "Optional: replaces the dark gradient background on the homepage hero",
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: "aboutTitle",
-      title: "About Page — Title",
-      type: "string",
-      description: "Large heading on the About page",
-    }),
-    defineField({
-      name: "aboutBody",
-      title: "About Page — Body Text",
+      name: "aboutCredits",
+      title: "作品年表 Credits",
       type: "array",
-      of: [{ type: "block" }],
-      description: "Main bio text on the About page. Use the toolbar to add bold, italics, etc.",
+      of: [{
+        type: "object",
+        fields: [
+          { name: "year", title: "年份", type: "string" },
+          { name: "title", title: "作品名稱", type: "string" },
+          { name: "role", title: "擔任角色", type: "string" },
+        ],
+        preview: {
+          select: { title: "title", subtitle: "year" },
+        },
+      }],
     }),
-    defineField({
-      name: "contactEmail",
-      title: "Contact Email",
-      type: "string",
-      description: "Email shown on the Contact page and footer (e.g. hello@tuktuksound.com)",
-      validation: (Rule) => Rule.email(),
-    }),
-    defineField({
-      name: "instagramUrl",
-      title: "Instagram URL",
-      type: "url",
-      description: "Full Instagram profile URL (e.g. https://instagram.com/tuktuksound)",
-    }),
-    defineField({
-      name: "imdbUrl",
-      title: "IMDb URL",
-      type: "url",
-      description: "Full IMDb profile URL",
-    }),
-    defineField({
-      name: "vimeoUrl",
-      title: "Vimeo URL",
-      type: "url",
-      description: "Full Vimeo profile URL",
-    }),
+    defineField({ name: "contactEmail", title: "聯絡 Email", type: "string" }),
+    defineField({ name: "instagramUrl", title: "Instagram 網址", type: "url" }),
+    defineField({ name: "imdbUrl", title: "IMDb 網址", type: "url" }),
+    defineField({ name: "vimeoUrl", title: "Vimeo 網址", type: "url" }),
   ],
-  preview: {
-    select: { title: "studioName" },
-    prepare({ title }) {
-      return { title: title || "Site Settings" };
-    },
-  },
 });
