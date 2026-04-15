@@ -47,3 +47,14 @@ export async function getAllProjectSlugs(): Promise<string[]> {
   );
   return results.map((r) => r.slug);
 }
+
+export async function getAllSoundLibraries() {
+  return client.fetch(
+    `*[_type == "soundLibrary"] | order(sortOrder asc) {
+      _id, title, slug, description, coverImage, downloadUrl,
+      releaseYear, trackCount, fileFormat
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+}
