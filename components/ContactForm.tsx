@@ -6,14 +6,35 @@ import ScrollReveal from "@/components/ScrollReveal";
 export default function ContactForm() {
   const [formState, setFormState] = useState({ name: "", email: "", project: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("https://formspree.io/f/xojyjqlo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(formState),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError("送出失敗，請直接寄信至 Email。");
+      }
+    } catch {
+      setError("網路錯誤，請稍後再試。");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -67,10 +88,21 @@ export default function ContactForm() {
           <textarea name="message" value={formState.message} onChange={handleChange} required placeholder="Tell us about your project — its story, format, timeline, and what you're looking for." rows={7} className="form-input w-full px-4 py-3 text-sm font-body resize-none" />
         </div>
       </ScrollReveal>
+
+      {error && (
+        <p className="font-mono text-[10px] tracking-[0.2em] text-red-400">{error}</p>
+      )}
+
       <ScrollReveal delay={150}>
-        <button type="submit" className="group relative inline-flex items-center gap-4 px-10 py-4 border border-gold/40 hover:border-gold transition-colors duration-500 overflow-hidden">
+        <button
+          type="submit"
+          disabled={sending}
+          className="group relative inline-flex items-center gap-4 px-10 py-4 border border-gold/40 hover:border-gold transition-colors duration-500 overflow-hidden disabled:opacity-50"
+        >
           <span className="absolute inset-0 bg-gold opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
-          <span className="font-mono text-xs tracking-[0.3em] text-gold uppercase">Send Message</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-gold uppercase">
+            {sending ? "Sending..." : "Send Message"}
+          </span>
           <span className="w-6 h-px bg-gold group-hover:w-10 transition-all duration-300" />
         </button>
       </ScrollReveal>
