@@ -28,7 +28,7 @@ export default async function HomePage() {
             src={heroImageUrl}
             alt="Hero background"
             fill
-            className="object-cover opacity-30"
+            className="object-cover opacity-60"
             priority
           />
         ) : null}
