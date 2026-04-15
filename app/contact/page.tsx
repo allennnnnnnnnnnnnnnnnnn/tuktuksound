@@ -117,7 +117,7 @@ export default function ContactPage() {
               <div className="border-t border-white/5 pt-10">
                 <p className="font-mono text-[10px] tracking-[0.4em] text-gold uppercase mb-5">Studio</p>
                 <p className="font-body text-silver leading-loose">
-                  TukTuk Studio<br />Seoul, South Korea<br />
+                  TukTuk Studio<br />Taipei, Taiwan<br />
                   <span className="font-mono text-xs text-silver/50 tracking-wider">tuktuksound.com</span>
                 </p>
               </div>
