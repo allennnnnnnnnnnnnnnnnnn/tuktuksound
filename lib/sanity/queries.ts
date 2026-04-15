@@ -5,7 +5,7 @@ const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSettings"]
   _id, studioName, homepageTitle, homepageSubtitle, heroImage,
   aboutTitle, aboutRole, aboutBody, aboutLocation, aboutFormat, aboutDaw,
   aboutExpertise, aboutCredits,
-  contactEmail, instagramUrl, imdbUrl, vimeoUrl
+  contactEmail, instagramUrl, facebookUrl
 }`;
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {

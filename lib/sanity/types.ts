@@ -29,8 +29,7 @@ export interface SiteSettings {
   aboutCredits?: Credit[];
   contactEmail?: string;
   instagramUrl?: string;
-  imdbUrl?: string;
-  vimeoUrl?: string;
+  facebookUrl?: string;
 }
 
 export interface Project {

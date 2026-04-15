@@ -6,7 +6,7 @@ export default async function Footer() {
   const studioName = settings?.studioName ?? "TukTuk Studio";
   const email = settings?.contactEmail ?? "hello@tuktuksound.com";
   const instagramUrl = settings?.instagramUrl ?? "https://instagram.com";
-  const imdbUrl = settings?.imdbUrl ?? "https://imdb.com";
+  const facebookUrl = settings?.facebookUrl ?? "https://facebook.com";
 
   return (
     <footer className="border-t border-white/5 mt-32">
@@ -28,8 +28,8 @@ export default async function Footer() {
               <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] tracking-[0.2em] text-silver hover:text-gold transition-colors duration-300 uppercase">
                 Instagram
               </a>
-              <a href={imdbUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] tracking-[0.2em] text-silver hover:text-gold transition-colors duration-300 uppercase">
-                IMDb
+              <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] tracking-[0.2em] text-silver hover:text-gold transition-colors duration-300 uppercase">
+                Facebook
               </a>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default async function Footer() {
             © {new Date().getFullYear()} Allen Kang — {studioName}
           </p>
           <nav className="flex gap-6">
-            {[{ href: "/", label: "Home" }, { href: "/about", label: "About" }, { href: "/portfolio", label: "Portfolio" }, { href: "/contact", label: "Contact" }].map((link) => (
+            {[{ href: "/", label: "Home" }, { href: "/about", label: "About" }, { href: "/portfolio", label: "Portfolio" }, { href: "/sound-library", label: "Sound Library" }, { href: "/contact", label: "Contact" }].map((link) => (
               <Link key={link.href} href={link.href} className="font-mono text-[10px] tracking-[0.2em] text-silver/50 hover:text-silver transition-colors duration-300 uppercase">
                 {link.label}
               </Link>

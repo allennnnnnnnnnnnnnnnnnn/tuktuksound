@@ -16,8 +16,7 @@ export default function ContactPage() {
 
   const contactEmail = settings?.contactEmail ?? "hello@tuktuksound.com";
   const instagramUrl = settings?.instagramUrl ?? "https://instagram.com";
-  const imdbUrl = settings?.imdbUrl ?? "https://imdb.com";
-  const vimeoUrl = settings?.vimeoUrl ?? "https://vimeo.com";
+  const facebookUrl = settings?.facebookUrl ?? "https://facebook.com";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -129,8 +128,7 @@ export default function ContactPage() {
                 <div className="flex flex-col gap-4">
                   {[
                     { label: "Instagram", url: instagramUrl },
-                    { label: "IMDb", url: imdbUrl },
-                    { label: "Vimeo", url: vimeoUrl },
+                    { label: "Facebook", url: facebookUrl },
                   ].map(({ label, url }) => (
                     <a key={label} href={url} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4">
                       <span className="font-mono text-[10px] tracking-[0.25em] text-silver group-hover:text-gold uppercase transition-colors duration-300 underline-anim">{label}</span>
