@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
   { href: "/sound-library", label: "Sound Library" },
+  { href: "/sound-journal", label: "Sound Journal" },
 ];
 
 export default function Navbar() {

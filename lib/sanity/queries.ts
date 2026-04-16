@@ -58,3 +58,15 @@ export async function getAllSoundLibraries() {
     { next: { revalidate: 60 } }
   );
 }
+
+export async function getAllSoundJournals() {
+  return client.fetch(
+    `*[_type == "soundJournal"] | order(date desc) {
+      _id, title, date, duration, tags,
+      "audioUrl": audioFile.asset->url,
+      body
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+}
