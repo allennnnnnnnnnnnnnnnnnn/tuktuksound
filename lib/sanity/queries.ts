@@ -12,7 +12,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
   return client.fetch(SITE_SETTINGS_QUERY, {}, { next: { revalidate: 60 } });
 }
 
-const PROJECT_FIELDS = `_id, title, slug, year, genre, roles, director, production, shortDescription, coverImage, featured, sortOrder`;
+const PROJECT_FIELDS = `_id, title, slug, year, genre, category, roles, director, production, shortDescription, coverImage, featured, sortOrder`;
 
 export async function getAllProjects(): Promise<Project[]> {
   return client.fetch(

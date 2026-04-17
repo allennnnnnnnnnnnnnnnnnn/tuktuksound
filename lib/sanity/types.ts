@@ -38,6 +38,7 @@ export interface Project {
   slug: { current: string };
   year: number;
   genre?: string;
+  category?: string;
   roles: string[];
   director?: string;
   production?: string;
