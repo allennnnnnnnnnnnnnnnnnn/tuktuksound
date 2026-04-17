@@ -8,8 +8,8 @@ import type { Project } from "@/lib/sanity/types";
 const CATEGORIES = ["劇情片", "紀錄片", "節目", "廣告"] as const;
 
 const ROLES_FOR_CATEGORY: Record<string, string[]> = {
-  "劇情片": ["SFX Design", "Sound Design", "Foley", "Dialogue Edit", "Re-recording Mix"],
-  "紀錄片": ["SFX Design", "Sound Design", "Foley", "Dialogue Edit", "Re-recording Mix"],
+  "劇情片": ["Sound Design", "SFX Design", "Foley", "Re-recording Mix", "Dialogue Edit"],
+  "紀錄片": ["Sound Design", "SFX Design", "Foley", "Re-recording Mix", "Dialogue Edit"],
   "節目": [],
   "廣告": [],
 };
