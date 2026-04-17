@@ -33,7 +33,7 @@ export default async function AboutPage() {
   const aboutLocation = settings?.aboutLocation ?? "Seoul, South Korea";
   const aboutFormat = settings?.aboutFormat ?? "Dolby Atmos · Stereo · 5.1";
   const aboutDaw = settings?.aboutDaw ?? "Pro Tools Ultimate";
-  const expertise = settings?.aboutExpertise ?? ["Sound Design", "Re-recording Mix", "Dialogue Editing", "Foley Direction", "ADR", "Dolby Atmos"];
+  const expertise = settings?.aboutExpertise ?? ["Sound Design", "Re-recording Mix", "Dialogue Editing", "Foley Direction", "ADR"];
   const credits = settings?.aboutCredits ?? [];
 
   return (
