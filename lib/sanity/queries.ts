@@ -33,7 +33,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   return client.fetch(
     `*[_type == "project" && slug.current == $slug][0] {
       _id, title, slug, year, genre, roles, director, production,
-      shortDescription, fullDescription, coverImage, galleryImages, videoUrl, featured, sortOrder
+      shortDescription, fullDescription, coverImage, galleryImages, videoUrl, externalUrl, featured, sortOrder
     }`,
     { slug },
     { next: { revalidate: 60 } }

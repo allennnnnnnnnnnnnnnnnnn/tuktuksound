@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { PortableText } from "@portabletext/react";
 import { getProjectBySlug, getAllProjects } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -23,6 +24,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: project.shortDescription,
   };
 }
+
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: { children?: React.ReactNode }) => (
+      <p className="font-body text-base text-silver leading-loose mb-6">{children}</p>
+    ),
+    blockquote: ({ children }: { children?: React.ReactNode }) => (
+      <blockquote className="font-display text-xl text-cream/80 border-l-2 border-gold pl-6 my-6 italic">{children}</blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }: { children?: React.ReactNode }) => (
+      <strong className="font-semibold text-pearl">{children}</strong>
+    ),
+    em: ({ children }: { children?: React.ReactNode }) => (
+      <em className="italic">{children}</em>
+    ),
+  },
+};
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -77,8 +97,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <ScrollReveal>
               <p className="font-mono text-[10px] tracking-[0.5em] text-gold uppercase mb-8">About the Project</p>
               <p className="font-display text-2xl md:text-3xl text-cream leading-relaxed mb-8">{project.shortDescription}</p>
+              {project.fullDescription && project.fullDescription.length > 0 && (
+                <PortableText value={project.fullDescription} components={portableTextComponents} />
+              )}
             </ScrollReveal>
+
+            {/* 外部連結按鈕 */}
+            {(project as any).externalUrl && (
+              <ScrollReveal delay={100}>
+                <div className="mt-10">
+                  <a
+                    href={(project as any).externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-4 px-10 py-4 border border-gold/40 hover:border-gold transition-colors duration-500"
+                  >
+                    <span className="font-mono text-xs tracking-[0.3em] text-gold uppercase">
+                      Watch on Instagram
+                    </span>
+                    <span className="w-6 h-px bg-gold" />
+                  </a>
+                </div>
+              </ScrollReveal>
+            )}
           </div>
+
           <div className="lg:col-span-5">
             <ScrollReveal delay={100}>
               <div className="border border-white/8 p-8">
@@ -141,6 +184,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8">
                   <p className="font-mono text-[10px] tracking-[0.5em] text-gold uppercase mb-4">Next Project</p>
                   <h2 className="font-display text-4xl md:text-6xl text-cream group-hover:text-gold transition-colors duration-300">{nextProject.title}</h2>
+                  <p className="font-mono text-[10px] tracking-[0.2em] text-silver uppercase mt-3">
+                    {nextProject.year}{nextProject.genre && ` — ${nextProject.genre}`}
+                  </p>
                 </div>
               </div>
             </div>
