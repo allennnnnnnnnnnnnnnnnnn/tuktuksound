@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 import ProjectCard from "@/components/ProjectCard";
+import { urlFor } from "@/lib/sanity/image";
 import type { Project } from "@/lib/sanity/types";
 
 const CATEGORIES = ["劇情片", "紀錄片", "節目", "廣告"] as const;
@@ -30,11 +31,24 @@ function AdVideoCard({ project, onClick }: { project: any; onClick: () => void }
   const videoId = getYouTubeId(project.videoUrl ?? "");
   const thumbUrl = videoId
     ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    : project.coverImage
+    ? urlFor(project.coverImage).width(800).height(450).url()
     : null;
+
+  const hasExternalLink = !!(project as any).externalUrl;
+  const hasVideo = !!videoId;
+
+  const handleClick = () => {
+    if (!hasVideo && hasExternalLink) {
+      window.open((project as any).externalUrl, "_blank", "noopener noreferrer");
+    } else {
+      onClick();
+    }
+  };
 
   return (
     <div
-      onClick={onClick}
+      onClick={handleClick}
       className="group cursor-pointer relative aspect-video overflow-hidden bg-ash"
     >
       {thumbUrl ? (
@@ -51,30 +65,38 @@ function AdVideoCard({ project, onClick }: { project: any; onClick: () => void }
         </div>
       )}
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-obsidian/40 group-hover:bg-obsidian/20 transition-colors duration-300" />
 
-      {/* Play button */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-14 h-14 border border-gold/60 group-hover:border-gold flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-          <div
-            className="ml-1"
-            style={{
-              width: 0,
-              height: 0,
-              borderTop: "9px solid transparent",
-              borderBottom: "9px solid transparent",
-              borderLeft: "15px solid #b8a882",
-            }}
-          />
+          {hasExternalLink && !hasVideo ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b8a882" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          ) : (
+            <div
+              className="ml-1"
+              style={{
+                width: 0,
+                height: 0,
+                borderTop: "9px solid transparent",
+                borderBottom: "9px solid transparent",
+                borderLeft: "15px solid #b8a882",
+              }}
+            />
+          )}
         </div>
       </div>
 
-      {/* Title */}
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-obsidian to-transparent">
         <h3 className="font-display text-lg text-cream leading-tight">{project.title}</h3>
         {project.year && (
           <p className="font-mono text-[9px] tracking-[0.2em] text-silver mt-1">{project.year}</p>
+        )}
+        {hasExternalLink && !hasVideo && (
+          <p className="font-mono text-[8px] tracking-[0.2em] text-gold/60 uppercase mt-1">View on Instagram →</p>
         )}
       </div>
     </div>
@@ -90,11 +112,7 @@ function VideoModal({ project, onClose }: { project: any; onClose: () => void })
       style={{ background: "rgba(8,8,8,0.95)" }}
       onClick={onClose}
     >
-      <div
-        className="w-full max-w-5xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
+      <div className="w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4">
           <div>
             <h2 className="font-display text-2xl md:text-3xl text-cream">{project.title}</h2>
@@ -112,7 +130,6 @@ function VideoModal({ project, onClose }: { project: any; onClose: () => void })
           </button>
         </div>
 
-        {/* Video */}
         <div className="relative aspect-video w-full bg-ash border border-white/8">
           {videoId ? (
             <iframe
@@ -160,7 +177,6 @@ export default function PortfolioClient({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      {/* 第一層：大分類 */}
       <ScrollReveal>
         <div className="flex flex-wrap gap-0 mb-10 border-b border-white/10">
           {CATEGORIES.map((cat) => (
@@ -179,7 +195,6 @@ export default function PortfolioClient({ projects }: { projects: Project[] }) {
         </div>
       </ScrollReveal>
 
-      {/* 第二層：角色篩選 */}
       {availableRoles.length > 0 && (
         <ScrollReveal>
           <div className="flex flex-wrap gap-2 mb-16">
@@ -200,7 +215,6 @@ export default function PortfolioClient({ projects }: { projects: Project[] }) {
         </ScrollReveal>
       )}
 
-      {/* 廣告：影片 Grid */}
       {activeCategory === "廣告" ? (
         filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
@@ -216,13 +230,9 @@ export default function PortfolioClient({ projects }: { projects: Project[] }) {
         ) : (
           <div className="text-center py-24 border border-white/5">
             <p className="font-display text-2xl text-silver">No ads found.</p>
-            <p className="font-mono text-xs text-silver/40 mt-3 tracking-wider">
-              Add projects with category &quot;廣告&quot; in the CMS.
-            </p>
           </div>
         )
       ) : (
-        /* 其他分類：一般作品卡片 */
         filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
             {filtered.map((project, i) => (
@@ -241,7 +251,6 @@ export default function PortfolioClient({ projects }: { projects: Project[] }) {
         )
       )}
 
-      {/* 影片 Modal */}
       {selectedAd && (
         <VideoModal
           project={selectedAd}
