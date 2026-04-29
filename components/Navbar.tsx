@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -38,18 +39,15 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex flex-col leading-none group">
-              <span
-                className="font-display text-lg md:text-xl tracking-wider text-cream transition-colors duration-300 group-hover:text-gold"
-                style={{ letterSpacing: "0.15em" }}
-              >
-                TUKTUK
-              </span>
-              <span
-                className="font-mono text-[9px] tracking-[0.4em] text-silver mt-0.5"
-              >
-                STUDIO
-              </span>
+            <Link href="/" className="flex items-center group">
+              <Image
+                src="/tuktuk-logo-transparent.png"
+                alt="TukTuk Studio"
+                width={110}
+                height={36}
+                priority
+                className="object-contain transition-opacity duration-300 group-hover:opacity-70"
+              />
             </Link>
 
             {/* Desktop nav */}
@@ -76,21 +74,9 @@ export default function Navbar() {
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
-              <span
-                className={`block w-6 h-px bg-cream transition-all duration-300 ${
-                  menuOpen ? "rotate-45 translate-y-[7px]" : ""
-                }`}
-              />
-              <span
-                className={`block w-6 h-px bg-cream transition-all duration-300 ${
-                  menuOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`block w-4 h-px bg-cream transition-all duration-300 ${
-                  menuOpen ? "-rotate-45 -translate-y-[7px] w-6" : ""
-                }`}
-              />
+              <span className={`block w-6 h-px bg-cream transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span className={`block w-6 h-px bg-cream transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-4 h-px bg-cream transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px] w-6" : ""}`} />
             </button>
           </div>
         </div>
@@ -99,9 +85,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       <div
         className={`fixed inset-0 z-40 flex flex-col justify-center items-center transition-all duration-500 ${
-          menuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ background: "rgba(8,8,8,0.97)" }}
       >
@@ -113,8 +97,7 @@ export default function Navbar() {
                 transitionDelay: menuOpen ? `${i * 60}ms` : "0ms",
                 transform: menuOpen ? "translateY(0)" : "translateY(20px)",
                 opacity: menuOpen ? 1 : 0,
-                transition:
-                  "transform 0.4s ease, opacity 0.4s ease",
+                transition: "transform 0.4s ease, opacity 0.4s ease",
               }}
             >
               <Link
