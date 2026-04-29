@@ -30,7 +30,7 @@ function getYouTubeId(url: string): string | null {
 function AdVideoCard({ project, onClick }: { project: any; onClick: () => void }) {
   const videoId = getYouTubeId(project.videoUrl ?? "");
   const thumbUrl = videoId
-    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
     : project.coverImage
     ? urlFor(project.coverImage).width(800).height(450).url()
     : null;
