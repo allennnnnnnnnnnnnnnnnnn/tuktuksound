@@ -61,12 +61,6 @@ export default async function HomePage() {
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-          <p
-            className="font-mono text-[10px] md:text-xs tracking-[0.5em] text-gold uppercase mb-8 md:mb-12 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-          >
-            Allen Kang
-          </p>
           <div
             className="opacity-0 animate-fade-up"
             style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
@@ -74,12 +68,18 @@ export default async function HomePage() {
             <Image
               src="/tuktuk-title-logo.png"
               alt="TukTuk Studio"
-              width={700}
-              height={700}
+              width={420}
+              height={420}
               priority
               className="object-contain mx-auto"
             />
           </div>
+          <p
+            className="font-mono text-[10px] md:text-xs tracking-[0.5em] text-gold uppercase mt-8 md:mt-10 opacity-0 animate-fade-in"
+            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
+          >
+            Allen Kang
+          </p>
           <p
             className="font-body text-sm md:text-base tracking-[0.25em] text-silver uppercase mt-8 md:mt-10 opacity-0 animate-fade-in"
             style={{ animationDelay: "0.9s", animationFillMode: "forwards" }}
