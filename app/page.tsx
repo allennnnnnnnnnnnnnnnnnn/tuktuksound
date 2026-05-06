@@ -71,7 +71,7 @@ export default async function HomePage() {
               width={420}
               height={420}
               priority
-              className="object-contain mx-auto max-h-[280px] w-auto"
+              className="object-contain mx-auto max-h-[340px] w-auto"
             />
           </div>
           <p
