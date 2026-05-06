@@ -67,14 +67,19 @@ export default async function HomePage() {
           >
             Allen Kang
           </p>
-          <h1
-            className="font-display text-[clamp(3.5rem,12vw,9rem)] leading-none tracking-tight text-cream opacity-0 animate-fade-up"
+          <div
+            className="opacity-0 animate-fade-up"
             style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
           >
-            {title}
-            <br />
-            <span className="italic font-light text-gold">Studio</span>
-          </h1>
+            <Image
+              src="/tuktuk-title-logo.png"
+              alt="TukTuk Studio"
+              width={700}
+              height={700}
+              priority
+              className="object-contain mx-auto"
+            />
+          </div>
           <p
             className="font-body text-sm md:text-base tracking-[0.25em] text-silver uppercase mt-8 md:mt-10 opacity-0 animate-fade-in"
             style={{ animationDelay: "0.9s", animationFillMode: "forwards" }}
